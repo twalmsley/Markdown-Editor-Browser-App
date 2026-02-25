@@ -22,8 +22,8 @@ function renderApp(root) {
       <h1 class="app-title">Markdown Editor</h1>
       <div class="file-actions" role="group" aria-label="File">
         <button type="button" class="header-btn" data-action="new" aria-label="New file">New</button>
-        <button type="button" class="header-btn" data-action="open" aria-label="Open file">Open</button>
-        <button type="button" class="header-btn" data-action="save" aria-label="Save file">Save</button>
+        <button type="button" class="header-btn fsa-only" data-action="open" aria-label="Open file">Open</button>
+        <button type="button" class="header-btn fsa-only" data-action="save" aria-label="Save file">Save</button>
         <button type="button" class="header-btn fallback-only" data-action="import" aria-label="Import file">Import</button>
         <button type="button" class="header-btn fallback-only" data-action="download" aria-label="Download file">Download</button>
       </div>
@@ -62,10 +62,13 @@ function renderApp(root) {
   toolbarWrap.appendChild(toolbar);
 
   const unsavedEl = root.querySelector('.unsaved-indicator');
+  const fsaBtns = root.querySelectorAll('.fsa-only');
   const fallbackBtns = root.querySelectorAll('.fallback-only');
   if (fileHandler.isFSAAvailable()) {
+    fsaBtns.forEach((b) => b.classList.remove('hidden'));
     fallbackBtns.forEach((b) => b.classList.add('hidden'));
   } else {
+    fsaBtns.forEach((b) => b.classList.add('hidden'));
     fallbackBtns.forEach((b) => b.classList.remove('hidden'));
   }
 
@@ -192,7 +195,11 @@ function init() {
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 's') {
       e.preventDefault();
-      root.querySelector('[data-action="save"]')?.click();
+      if (fileHandler.isFSAAvailable()) {
+        root.querySelector('[data-action="save"]')?.click();
+      } else {
+        root.querySelector('[data-action="download"]')?.click();
+      }
     }
   });
 }
