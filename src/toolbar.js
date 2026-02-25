@@ -17,6 +17,7 @@ const BUTTONS = [
   { id: 'ul', label: 'Bullet list', action: 'ul', symbol: '•' },
   { id: 'ol', label: 'Numbered list', action: 'ol', symbol: '1.' },
   { id: 'hr', label: 'Horizontal rule', action: 'hr', symbol: '—' },
+  { id: 'table', label: 'Table', action: 'table', symbol: '⊞' },
   { id: 'codeBlock', label: 'Code block', action: 'codeBlock', symbol: '{}' },
 ];
 

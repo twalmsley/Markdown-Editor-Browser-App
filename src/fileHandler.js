@@ -22,6 +22,7 @@ export async function openFile() {
     const file = await handle.getFile();
     const content = await file.text();
     state.setFileHandle(handle);
+    state.setFileName(handle.name);
     state.loadContent(content, true);
     return content;
   } catch (err) {
@@ -42,6 +43,7 @@ export async function saveFile(content) {
         types: [{ accept: { 'text/markdown': ['.md', '.markdown'] } }],
       });
       state.setFileHandle(handle);
+      state.setFileName(handle.name);
     }
     const writable = await handle.createWritable();
     await writable.write(content);

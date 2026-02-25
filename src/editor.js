@@ -63,6 +63,28 @@ export function insertAtLineStart(el, prefix) {
 }
 
 /**
+ * Insert a markdown table template (3 columns, header + 2 rows).
+ * Cursor is placed in the first cell of the first data row.
+ */
+function insertTable(el) {
+  const value = el.value;
+  const start = el.selectionStart;
+  const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+  const table =
+    (lineStart > 0 ? '\n' : '') +
+    '| Column 1 | Column 2 | Column 3 |\n' +
+    '| -------- | -------- | -------- |\n' +
+    '|          |          |          |\n' +
+    '|          |          |          |';
+  const prefixLen = (lineStart > 0 ? 1 : 0) + 33 + 33 + 3; // header line + separator line + "| "
+  const cursor = lineStart + prefixLen;
+  el.focus();
+  el.setSelectionRange(lineStart, lineStart);
+  document.execCommand('insertText', false, table);
+  el.setSelectionRange(cursor, cursor);
+}
+
+/**
  * Insert block: add before current line and a newline after (e.g. "```\n\n```").
  * Uses execCommand so the change is undoable.
  */
@@ -106,6 +128,7 @@ const actions = {
   ol: (el) => insertAtLineStart(el, '1. '),
   hr: (el) => insertBlock(el, '---', ''),
   codeBlock: (el) => insertBlock(el, '```', '```'),
+  table: (el) => insertTable(el),
 };
 
 /**

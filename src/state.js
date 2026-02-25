@@ -4,6 +4,7 @@
  */
 let content = '';
 let fileHandle = null;
+let fileName = null;
 let lastSavedContent = '';
 let dirty = false;
 let theme = 'light';
@@ -14,6 +15,7 @@ function getState() {
   return {
     content,
     fileHandle,
+    fileName,
     lastSavedContent,
     dirty,
     theme,
@@ -29,6 +31,11 @@ function setContent(value) {
 
 function setFileHandle(handle) {
   fileHandle = handle;
+  emit();
+}
+
+function setFileName(name) {
+  fileName = name ?? null;
   emit();
 }
 
@@ -51,6 +58,7 @@ function setTheme(value) {
 function resetForNewFile() {
   content = '';
   fileHandle = null;
+  fileName = null;
   lastSavedContent = '';
   dirty = false;
   emit();
@@ -81,6 +89,7 @@ export default {
   getState,
   setContent,
   setFileHandle,
+  setFileName,
   setLastSavedContent,
   setDirty,
   setTheme,
