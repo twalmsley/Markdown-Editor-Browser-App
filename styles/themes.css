@@ -1,0 +1,29 @@
+/* Light/dark variable definitions; applied via data-theme on html */
+[data-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #fff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --border: #dee2e6;
+  --pre-bg: #f1f3f5;
+  --code-fg: #374151;
+  --accent: #0d6efd;
+  --accent-hover: #0b5ed7;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #252525;
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --border: #495057;
+  --pre-bg: #2d2d2d;
+  --code-fg: #e9ecef;
+  --accent: #339af0;
+  --accent-hover: #228be6;
+}
+
+[data-theme="dark"] .preview pre code.hljs {
+  background: var(--pre-bg);
+  color: var(--code-fg);
+}
